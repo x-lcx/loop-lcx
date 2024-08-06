@@ -19,13 +19,13 @@ jobs:
       - name: Set up Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: '14.3.1' # 将 Xcode 版本修改为 14.3.1 或者可用版本
+          xcode-version: '14.3.1' # 使用 Xcode 14.3.1 或者可用版本
 
       - name: Install dependencies
         run: |
           gem install bundler
           bundle install
-        working-directory: . # 需要根据你的项目结构调整
+        working-directory: . # 如果 `Gemfile` 在项目根目录下，则删除这行
 
       - name: Build IPA
         run: |
