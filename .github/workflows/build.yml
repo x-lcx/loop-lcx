@@ -25,7 +25,7 @@ jobs:
         run: |
           xcodebuild -project Loop.xcodeproj -scheme Loop -sdk iphoneos -configuration Release -archivePath ${{ github.workspace }}/build/Loop.xcarchive archive CODE_SIGNING_ALLOWED=NO
           xcodebuild -exportArchive -archivePath ${{ github.workspace }}/build/Loop.xcarchive -exportPath ${{ github.workspace }}/build CODE_SIGNING_ALLOWED=NO
-          
+
       - name: Upload IPA
         uses: actions/upload-artifact@v2
         with:
