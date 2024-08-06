@@ -23,8 +23,8 @@ jobs:
 
       - name: Build IPA
         run: |
-          xcodebuild -project Loop.xcodeproj -scheme Loop -sdk iphoneos -configuration Release -archivePath ${{ github.workspace }}/build/Loop.xcarchive archive
-          xcodebuild -exportArchive -archivePath ${{ github.workspace }}/build/Loop.xcarchive -exportPath ${{ github.workspace }}/build
+          xcodebuild -project Loop.xcodeproj -scheme Loop -sdk iphoneos -configuration Release -archivePath ${{ github.workspace }}/build/Loop.xcarchive archive CODE_SIGNING_ALLOWED=NO
+          xcodebuild -exportArchive -archivePath ${{ github.workspace }}/build/Loop.xcarchive -exportPath ${{ github.workspace }}/build CODE_SIGNING_ALLOWED=NO
       # 如果不需要导出选项plist，请移除 -exportOptionsPlist ExportOptions.plist 相关部分
 
       - name: Upload IPA
