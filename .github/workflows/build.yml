@@ -1,0 +1,42 @@
+name: iOS Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '14.0' # 或者你需要的 Xcode 版本
+
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install
+        working-directory: . # 需要根据你的项目结构调整
+
+      - name: Build IPA
+        run: |
+          xcodebuild -workspace Loop.xcworkspace -scheme Loop -sdk iphoneos -configuration Release archive -archivePath ${{ github.workspace }}/build/Loop.xcarchive
+          xcodebuild -exportArchive -archivePath ${{ github.workspace }}/build/Loop.xcarchive -exportPath ${{ github.workspace }}/build -exportOptionsPlist ExportOptions.plist
+        env:
+          CERTIFICATE: ${{ secrets.CERTIFICATE }}
+          PROVISIONING_PROFILE: ${{ secrets.PROVISIONING_PROFILE }}
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v2
+        with:
+          name: Loop.ipa
+          path: ${{ github.workspace }}/build/*.ipa
