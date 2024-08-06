@@ -21,12 +21,6 @@ jobs:
         with:
           xcode-version: '14.3.1' # 使用 Xcode 14.3.1 或者可用版本
 
-      - name: Install dependencies
-        run: |
-          gem install bundler
-          bundle install
-        working-directory: . # 如果 `Gemfile` 在项目根目录下，则删除这行
-
       - name: Build IPA
         run: |
           xcodebuild -workspace Loop.xcworkspace -scheme Loop -sdk iphoneos -configuration Release -archivePath ${{ github.workspace }}/build/Loop.xcarchive archive
