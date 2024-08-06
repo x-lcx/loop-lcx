@@ -21,12 +21,6 @@ jobs:
         with:
           xcode-version: '14.3.1' # 使用 Xcode 14.3.1 或者可用版本
 
-      - name: Install CocoaPods
-        run: |
-          sudo gem install cocoapods
-          pod install
-        working-directory: . # 如果 `Podfile` 在项目根目录下
-
       - name: Build IPA
         run: |
           xcodebuild -workspace Loop.xcworkspace -scheme Loop -sdk iphoneos -configuration Release -archivePath ${{ github.workspace }}/build/Loop.xcarchive archive
