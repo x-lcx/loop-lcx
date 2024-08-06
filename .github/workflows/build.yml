@@ -19,7 +19,7 @@ jobs:
       - name: Set up Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: '14.0' # 或者你需要的 Xcode 版本
+          xcode-version: '14.3.1' # 将 Xcode 版本修改为 14.3.1 或者可用版本
 
       - name: Install dependencies
         run: |
@@ -30,7 +30,7 @@ jobs:
       - name: Build IPA
         run: |
           xcodebuild -workspace Loop.xcworkspace -scheme Loop -sdk iphoneos -configuration Release -archivePath ${{ github.workspace }}/build/Loop.xcarchive archive
-          xcodebuild -exportArchive -archivePath ${{ github.workspace }}/build/Loop.xcarchive -exportPath ${{ github.workspace }}/build -exportOptionsPlist ExportOptions.plist
+          xcodebuild -exportArchive -archivePath ${{ github.workspace }}/build/Loop.xcarchive -exportPath ${{ github.workspace }}/build
       # 如果不需要导出选项plist，请移除 -exportOptionsPlist ExportOptions.plist 相关部分
 
       - name: Upload IPA
