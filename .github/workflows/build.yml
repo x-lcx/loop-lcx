@@ -29,11 +29,9 @@ jobs:
 
       - name: Build IPA
         run: |
-          xcodebuild -workspace Loop.xcworkspace -scheme Loop -sdk iphoneos -configuration Release archive -archivePath ${{ github.workspace }}/build/Loop.xcarchive
+          xcodebuild -workspace Loop.xcworkspace -scheme Loop -sdk iphoneos -configuration Release -archivePath ${{ github.workspace }}/build/Loop.xcarchive archive
           xcodebuild -exportArchive -archivePath ${{ github.workspace }}/build/Loop.xcarchive -exportPath ${{ github.workspace }}/build -exportOptionsPlist ExportOptions.plist
-        env:
-          CERTIFICATE: ${{ secrets.CERTIFICATE }}
-          PROVISIONING_PROFILE: ${{ secrets.PROVISIONING_PROFILE }}
+      # 如果不需要导出选项plist，请移除 -exportOptionsPlist ExportOptions.plist 相关部分
 
       - name: Upload IPA
         uses: actions/upload-artifact@v2
